@@ -35,6 +35,30 @@ RSpec.describe "Students", type: :request do
     end
   end
 
+  describe "GET /students/:id" do
+    it "returns the first student" do
+      student = Student.first
+      get "/students/#{student.id}"
+      expect(JSON.parse(response.body)).to be_json_including(
+        id: student.id,
+        first_name: student.first_name,
+        last_name: student.last_name,
+        grade: student.grade
+      )
+    end
+  end
+  describe "GET /students/:id" do
+    it "returns the second student" do
+      student = Student.second
+      get "/students/#{student.id}"
+      expect(JSON.parse(response.body)).to be_json_including(
+        id: student.id,
+        first_name: student.first_name,
+        last_name: student.last_name,
+        grade: student.grade
+      )
+    end
+  end
   describe "GET /students" do
     it 'returns an array of all students' do
       get '/students'
